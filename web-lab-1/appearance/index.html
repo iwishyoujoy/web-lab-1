@@ -1,17 +1,43 @@
 <!DOCTYPE HTML PUBLIC"-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ru">
     <head>
+
         <meta charset="utf-8">
         <meta name="author" content="Darya Skvortsova">
         <meta name="description" content="first lab work for web-programming">
 
         <link href='style.css' rel='stylesheet'>
+        <link href='favicon.ico' rel='icon'>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script>
+            $(document).ready ( function(){
+              onetime();
+            });
+        </script>
+
+        <script>
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+            }
+}
+</script>
 
         <body>
             <table id="main">
-                <tr>
+                <tr id>
                     <th colspan=3>
                         <h1>Добро пожаловать!<br> Здесь вы можете проверить попадание точки на координатной плоскости в заданную область!</h1>
+                        <br>
                         <br>
                     </th>
                 </tr>
@@ -32,13 +58,21 @@
                         <p>1. Введите значение параметра R. </p>
                         <p>2. Введите координаты точки. </p>
                         <p>3. Дождитесь ответа. </p>
+                        <br>
+                        <p id="toBold">Ссылки:</p>
+                        <p>
+                            <ul id="links"> <!-- НЕОБХОДИМО СДЕЛАТЬ ССЫЛКИ НА ЛАБЫ -->
+                                <!--<li><a href='./index.html' target='_blank'>Лабораторная работа №1</a></li>-->
+                                <li><a class='pointer' href="https://github.com/iwishyoujoy/web-lab-1">Исходный код</a></li>
+                            </ul>
+                        </p>
                     </td>
                     <td id='data' width="40%"> <!--сделать расстояние между колонками-->
                         <br>
-                        <form method='GET' novalidate> <!-- Разобраться с отправкой-->
+                        <form method='GET' novalidate onsubmit="update(); return false;"> <!-- Разобраться с отправкой-->
                         <p>
                             <label for='R'>Выберите R:</label>
-                            <select id='R' name='R' required>
+                            <select class='r-text' id='R' name='R' required>
                                 <option value='' selected>не выбрано</option>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
@@ -48,11 +82,10 @@
                             </select>
 
                             <br>
-                            <span class='r-error'></span>
                             <br>
             
                             <label for='X'>Выберите X:</label>
-                            <select id='X' name='X' required> <!--не поняла нужна точка или запятая для разделения-->
+                            <select class='x-text' id='X' name='X' required> <!--не поняла нужна точка или запятая для разделения-->
                                 <option value='' selected>не выбрано</option>
                                 <option value='-2'>-2</option>
                                 <option value='-1.5'>-1.5</option>
@@ -66,32 +99,33 @@
                             </select>
 
                             <br>
-                            <span class='x-error'></span>
                             <br>
 
                             <label for='y'>
                                 Введите Y - значение из интервала (-3; 3):
                             </label>
-                            <input id='Y' name='Y' type='text' required onkeyup='this.value = this.value.replace(/[^\d-.]/g,"")' maxlength='14'>
+                            <input class='y-text' id='Y' name='Y' type='text' maxlength='14' oninput="validateTextField()" required>
                               
                             <br>
-                            <span class='y-error'></span>
+                            <div id="validationInfo" class="validationInfo">
+                            </div>
                             <br>
 
                             <label for='check'>
                                 Для того, чтобы проверить попадание заданной точки, нажмите кнопку ниже
                             </label>
                             <br>
+
                             <br>
-                            <input id='check' name='check' type='submit' value='Проверить'>
+                            <input class='pointer' id='check' name='check' type='submit' value='Проверить'>
                             </p>
                           </form>
-                        </div>
+
                     </td>
                     <td id='area' width="30%">
                         <br>
                         <section id='coordinate-system'> 
-                            <svg width="476" height="475" viewBox="0 0 476 475" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="333" height="333" viewBox="0 0 476 475" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M401.5 248.5C401.5 306.5 367 422.4 229 422V248.5H401.5Z" fill="#DDB7AB" fill-opacity="0.8" stroke="black" stroke-opacity="0.3" stroke-width="2"/>
                                 <path d="M316.5 248.5L229.5 73.5V248.5H316.5Z" fill="#DDB7AB" fill-opacity="0.8" stroke="black" stroke-opacity="0.3" stroke-width="2"/>
                                 <path d="M229 249H54V423.5H229V249Z" fill="#DDB7AB" fill-opacity="0.8" stroke="black" stroke-opacity="0.3" stroke-width="2"/>
@@ -120,8 +154,33 @@
                         </section>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <br>
+                        <input class='pointer' id='clear' type='button' value='Очистить таблицу' onclick='clearTable()''>                        
+                    </td>
+                    <td colspan=2>
+                        <br>
+                        <table id="results">
+                            <tr id="heads">
+                                <th width="10%">X</th>
+                                <th width="10%">Y</th>
+                                <th width="10%">R</th>
+                                <th width="20%">Текущее время</th>
+                                <th width="30%">Время работы скрипта</th>
+                                <th width="40%">Результат</th>
+                            </tr> 
+                        </table>
+                    </td>
+                </tr>
                 
             </table>
         </body>
+
+        <script src="../js/validator.js"></script>
+        <script src="../js/updater.js"></script>
+        <script src="../js/clearTable.js"></script>
+        <!--<script src="../js/ButtonController.js"></script>-->
+    
     </head>
 </html>
