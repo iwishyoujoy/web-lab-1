@@ -25,6 +25,6 @@ function checkY(y){
 
 function validateTextField() {
     $('.y-text').on('input', function() {
-        $(this).val($(this).val().replace(/[^.-\d]/, ''));
+        $(this).val($(this).val().replace(/[eE]/, ''));
     });
 }

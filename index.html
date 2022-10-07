@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="author" content="Darya Skvortsova">
         <meta name="description" content="first lab work for web-programming">
-        <meta name="viewport" content="width=device-width" initial-scale=0.9, user-scalable=0>
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=0">
 
         <title>Лабораторная работа №1</title>
 
@@ -85,17 +85,14 @@
                         <br>
 
                         <label for='y'>Введите Y - значение из интервала (-3; 3):</label>
-                        <input class='y-text' id='Y' name='Y' type='text' maxlength='14' oninput="validateTextField()" required>
+                        <input class='y-text' id='Y' name='Y' type="number" step="0.00000001" maxlength="10" oninput="validateTextField()" required>
                           
                         <br>
                         <div id="validationInfo" class="validationInfo"> <!--всплывающая надпись, если Y введен неверно; изначально не видно-->
                         </div>
-                        <br>
 
-                        <label for='check'>Нажмите кнопку ниже, чтобы проверить значение или очистить таблицу</label>
-                        <br>
+                        <p>Нажмите кнопку ниже, чтобы проверить значение или очистить таблицу</p>
 
-                        <br>
                         <input class='pointer' id='check' name='check' type='submit' value='Проверить'>
                         <input class='pointer' id='clear' name='clear' type='button' value='Очистить таблицу' onclick='clearTable()''>                   
                     </form>
@@ -161,7 +158,7 @@
                             <th>Y</th>
                             <th>R</th>
                             <th>Текущее время</th>
-                            <th>Время работы скрипта</th>
+                            <th>Время работы скрипта (msec)</th>
                             <th>Результат</th>
                         </tr> 
                     </table>

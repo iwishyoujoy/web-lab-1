@@ -6,10 +6,10 @@ date_default_timezone_set('Europe/Moscow');
 
 function check_coords($x, $y, $r) {
     $flag = false;
-    if ($x >= 0 && $y >= 0 && $y + 2*$x <= $r) { //y<=-2x+R
+    if ($x >= 0 && $y >= 0 && $y + 2*$x <= $r) { //y<=-2x+R - уравнение треугольника
         $flag = true;
     }
-    if ($x <= 0 && $y <= 0 && $x <= $r && $y <= $r) {
+    if ($x <= 0 && $y <= 0 && abs($x) <= $r && abs($y) <= $r) {
         $flag = true;
     } 
     if ($x >= 0 && $y <= 0 && $x >= -$r && pow($x, 2) + pow($y, 2) <= pow($r, 2)) {
@@ -20,7 +20,7 @@ function check_coords($x, $y, $r) {
 
 
 $current_time = date("H:i:s");
-$starting_time = microtime(true);
+$starting_time = microtime(true); // in microseconds
 
 if (isset($_GET["x"]) && isset($_GET["y"]) && isset($_GET["r"])) {
     $validator = new Validator;
@@ -34,7 +34,7 @@ if (isset($_GET["x"]) && isset($_GET["y"]) && isset($_GET["r"])) {
         
         $checked_dot = check_coords($x, $y, $r) ? "попадание!" : "промах!";
 
-        $finish_time = round((microtime(true) - $starting_time) * 1000000, 2); //выписать единицы измерения
+        $finish_time = round((microtime(true) - $starting_time) * 1000000, 2); //the result in microseconds
         
         exit("
             <tr>

@@ -11,33 +11,20 @@ function update() {
 
     let yval = document.getElementById("Y").value; //get y from textbox
 
-    /*event.preventDefault();
-        let data = " R= " + encodeURIComponent(rval) + " & x= " + encodeURIComponent(xval) + " & y= " + encodeURIComponent(yval);
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "main.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send(data);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    console.log(xval, yval, rval);
-                    updateTable(data);
-                }
-            }
-        }*/
-
     if (checkY(yval)) {
        $.ajax({
             type: 'GET',
-            url: '../php/main.php',
+            url: 'web-lab-1/php/main.php',
             async: false,
             data: { "x": xval, "y": yval, "r": rval },
             success: function (data) {
-                console.log('привет')
+                console.log('привет');
                 $('#results tr:last').after(data);
                 let prev = localStorage.getItem("result");
                 prev = prev + "\n" + data;
                 localStorage.setItem("result", prev);
+                $('#circle').attr('cx', 150 + 200 * parseFloat(xval)/(2*parseFloat(rval))); 
+                $('#circle').attr('cy', 150 - 200 * parseFloat(yval)/(2*parseFloat(rval)));
             },
             error: function (xhr, textStatus, err) {
                 alert("readyState: " + xhr.readyState + "\n"+
@@ -48,8 +35,8 @@ function update() {
             }
         });
     }else{
-        alert("Something gone wrong on checking values! Those were your variables: " + 
-        "\n" + "xval: " + xval + "\n" + "yval: " + yval + "\n" + "rval: " + rval);
+        // alert("Something gone wrong on checking values! Those were your variables: " + 
+        // "\n" + "xval: " + xval + "\n" + "yval: " + yval + "\n" + "rval: " + rval);
     }
 }
 

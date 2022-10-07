@@ -4,7 +4,7 @@ function clearTable() {
         <th>Y</th>
         <th>R</th>
         <th>Текущее время</th>
-        <th>Время работы скрипта</th>
+        <th>Время работы скрипта (msec)</th>
         <th>Результат</th>
     </tr> `);
     //window.localStorage.removeItem('tableData');
