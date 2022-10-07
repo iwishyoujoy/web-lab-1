@@ -1,15 +1,15 @@
 let count = true;
 function update() {
-
-    let yval = document.getElementById("Y").value;
-
-    let xvals = document.getElementById("X");
-    var xval = xvals.options[xvals.selectedIndex].text;
-
-    let rvals = document.getElementById("R");
-    var rval = rvals.options[rvals.selectedIndex].text;
-
     
+    console.log('привет1')
+    
+    let xvals = document.getElementById("X");
+    var xval = xvals.options[xvals.selectedIndex].text; //get x from select-bar
+    
+    let rvals = document.getElementById("R");
+    var rval = rvals.options[rvals.selectedIndex].text; //get r from select-bar
+
+    let yval = document.getElementById("Y").value; //get y from textbox
 
     /*event.preventDefault();
         let data = " R= " + encodeURIComponent(rval) + " & x= " + encodeURIComponent(xval) + " & y= " + encodeURIComponent(yval);
@@ -26,13 +26,14 @@ function update() {
             }
         }*/
 
-    if (checkInput(yval)) {
+    if (checkY(yval)) {
        $.ajax({
             type: 'GET',
             url: '../php/main.php',
             async: false,
             data: { "x": xval, "y": yval, "r": rval },
             success: function (data) {
+                console.log('привет')
                 $('#results tr:last').after(data);
                 let prev = localStorage.getItem("result");
                 prev = prev + "\n" + data;
@@ -46,6 +47,9 @@ function update() {
                 "error: " + err);
             }
         });
+    }else{
+        alert("Something gone wrong on checking values! Those were your variables: " + 
+        "\n" + "xval: " + xval + "\n" + "yval: " + yval + "\n" + "rval: " + rval);
     }
 }
 

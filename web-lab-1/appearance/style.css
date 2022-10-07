@@ -1,32 +1,74 @@
 *{
-    margin: 0; /*добавить поля нормальные*/
-
-    padding: 0;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    font-weight: 400;
+    font-weight: normal;
+    line-height: normal;
 }
 
-.pointer {cursor: pointer;}
-
 *::selection{
-    background-color: #dfc8c0;
+    background-color: #cbb6b0;
 }
 
 body {
-    /* Old browsers */
     background-color: #f4eeed;
     color: #000000;
     font-family: 	Lucida Sans Unicode, sans-serif;
 }
 
+.info-heading {
+    font-weight: bold !important;
+    font-size: larger;
+    text-align:center;
+}
+
+.pointer {cursor: pointer;}
+
+#main {
+    text-indent: 0%;
+    vertical-align: top;
+    margin-left: 5%;
+    margin-right: 5%; 
+}
+
+.container{
+    display: grid;
+    height:auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 0.2rem;
+    grid-template-areas: 
+        "info-container data-container area-container"
+        "results-container results-container results-container";
+}
+
+#info-container{
+    grid-area: info-container;
+    align-content: start;
+    justify-content: center;
+}
+
+#data-container{
+    grid-area: data-container;
+    align-content:start;
+    justify-content: center;
+}
+
+#area-container{
+    grid-area: area-container;
+    align-content: start;
+    justify-content: center;
+}
+
+#results-container{
+    grid-area: results-container;
+}
+
 #links {
     list-style: inside;
+    list-style-type: circle;
+    margin: 0;
 }
 
 a:link {
-    color: #c17a64;
+    color: #c36e54;
     background-color: transparent;
     text-decoration:underline;
   }
@@ -37,105 +79,76 @@ a:visited {
     text-decoration: none;
 }
 
-table {
-    margin-top: 20px;
-    margin-left: 20px;
-    vertical-align: middle; 
-}
-
-h1 {
-    font-weight: bold;
-    font-size: larger;
-}
-
-th#heading {
-    font-weight: bold;
-    font-size: large;
-}
-
-p {
-    padding: 1px;
-    font-size: normal;
-}
-
-p#toBold{
+b{
     font-weight: bold;
 }
 
-#R, #X{
+#R, #X, #Y{
     background-color: #efd9d1;
-    margin-left: 5px;
-    padding-left: 3px;
+    margin-left: 1%;
+    padding-left: 1%;
     border: solid 3px #b4a39d;
-    /*border: outset 1px #342f2d;*/
+    border-radius: 25px;
+    color: #000000;
     font-family: Lucida Sans Unicode, sans-serif;
     font-weight: normal;
 }
 
 
-#Y {
-    background-color: #efd9d1;
-    margin-left: 5px;
-    padding-left: 3px;
-    border: solid 3px #b4a39d;
-    /*border: outset 1px #342f2d;*/
-    font-family: Lucida Sans Unicode, sans-serif;
-    font-weight: normal;
-}
-
-#check {
-    margin-top: 8px;
-    margin-left: 30%;
-    padding: 5px 10px;
+#check, #clear {
+    align-self:center;
+    padding: 1% 2%;
     border: solid 3px #8b726a;
-    /*border: outset 1px #342f2d;*/
+    border-radius: 25px;
+    color: #000000;
     background-color: #DDB7AB; 
     font-family: Lucida Sans Unicode, sans-serif;
     font-weight: normal;
-    font-size: 1.1em;   
+    font-size: medium;   
 }
 
-#clear {
-    margin-left: 10%;
-    margin-top: 8px;
-    padding: 5px 10px;
-    border: solid 3px #8b726a;
-    /*border: outset 1px #342f2d;*/
-    background-color: #DDB7AB; 
-    font-family: Lucida Sans Unicode, sans-serif;
-    font-weight: normal;
-    font-size: 1.1em;   
-}
 #results{
-    margin-right: 10%;
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
     margin-top: 8px;
     padding: 5px 10px;
+    text-align: center;
     border-collapse: collapse;
+    font-weight: normal;
 }
 
-#heads, #heads>th{
+#results th{
     background-color: #ddb7ab;
     border: solid 3px #8b726a;
 }
 
 #results td{
-    margin-right: 10%;
-    margin-top: 8px;
-    padding: 5px 10px;
     background-color: #efd9d1;
     border: solid 3px #b4a39d;
-    text-align: center;
+}
+
+line {
+    color: #000000;
+}
+
+#arrow {
+    stroke: #000000;
+    fill: #000000;
+}
+
+polygon,
+path {
+    stroke: #8b726a;
+    fill: #DDB7AB;
+
 }
 
 .validationInfo {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1%;
-    margin-top: 1%;
-    padding-right: 80px;
+    margin: auto;
     text-align: center;
-    font-family: inherit;
-    color: #f24421;
+    font-family: 	Lucida Sans Unicode, sans-serif;
+    color: #973522;
     opacity: 0;
     transition: opacity 0.7s;
 }
@@ -147,6 +160,23 @@ p#toBold{
 
 #error{
     font-weight: bold;
+}
+
+@media (max-width: 700px) {
+    .container{
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.8fr 0.8fr 0.8fr 0.8fr;
+        grid-template-areas: 
+            "info-container"
+            "area-container"
+            "data-container"
+            "results-container";
+    }
+
+    #area-container{
+        margin: auto !important;
+        justify-content: center;
+    }
 }
   
 

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC"-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ru">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="author" content="Darya Skvortsova">
+        <meta name="description" content="first lab work for web-programming">
+        <meta name="viewport" content="width=device-width" initial-scale=0.9, user-scalable=0>
+
+        <title>Лабораторная работа №1</title>
+
+        <link href='web-lab-1/appearance/style.css' rel='stylesheet'>
+        <link href='web-lab-1/appearance/favicon.ico' rel='icon'>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    </head>
+    
+    <body>
+        <table id="main">
+            <tr><td colspan="3">
+                    <div class="info-heading">
+                        Добро пожаловать!<br> Здесь вы можете проверить попадание точки на координатной плоскости в заданную область!
+                        <br>
+                    </div>
+                </td>
+            </tr>
+            <tr><td colspan="3"><div class="container">
+                <div id="info-container">
+                    <p class="info-heading">Информация:</p>
+
+                    <p><b>Создатель:</b><br>
+                    Скворцова Дарья Алексеевна<br>
+                    группа P32101<br>
+                    вариант 1019</p>
+
+                    <p><b>Правила пользования:</b><br>
+                    1. Введите значение параметра R.<br>
+                    2. Введите координаты точки. <br>
+                    3. Дождитесь ответа. </p>
+
+                    <p><b>Ссылки:</b>
+                        
+                        <br>
+
+                        <ul id="links">
+                            <li><a class='pointer' href="https://github.com/iwishyoujoy/web-lab-1">Исходный код</a></li>
+                            <li><a class='pointer' href="https://iwishyoujoy.ru">Моё портфолио</a></li>
+                        </ul>
+                    </p>
+                </div>
+                <div id="data-container data">
+                    <p class="info-heading">График:</p>
+
+                    <br>
+
+                    <form method='GET' novalidate onsubmit="update(); return false;">
+                        <label for='R'>Выберите R:</label>
+                        <select class='r-text' id='R' name='R' required>
+                            <option value='1' selected>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                            <option value='4'>4</option>
+                            <option value='5'>5</option>
+                        </select>
+
+                        <br>
+                        <br>
+        
+                        <label for='X'>Выберите X:</label>
+                        <select class='x-text' id='X' name='X' required>
+                            <option value='-2' selected>-2</option>
+                            <option value='-1.5'>-1.5</option>
+                            <option value='-1'>-1</option>
+                            <option value='-0.5'>-0.5</option>
+                            <option value='0'>0</option>
+                            <option value='0.5'>0.5</option>
+                            <option value='1'>1</option>
+                            <option value='1.5'>1.5</option>
+                            <option value='2'>2</option>
+                        </select>
+
+                        <br>
+                        <br>
+
+                        <label for='y'>Введите Y - значение из интервала (-3; 3):</label>
+                        <input class='y-text' id='Y' name='Y' type='text' maxlength='14' oninput="validateTextField()" required>
+                          
+                        <br>
+                        <div id="validationInfo" class="validationInfo"> <!--всплывающая надпись, если Y введен неверно; изначально не видно-->
+                        </div>
+                        <br>
+
+                        <label for='check'>Нажмите кнопку ниже, чтобы проверить значение или очистить таблицу</label>
+                        <br>
+
+                        <br>
+                        <input class='pointer' id='check' name='check' type='submit' value='Проверить'>
+                        <input class='pointer' id='clear' name='clear' type='button' value='Очистить таблицу' onclick='clearTable()''>                   
+                    </form>
+                </div>
+                <div id="area-container">
+                    <p class="info-heading">Заданная область:</p>
+
+                    <br>
+
+                    <svg id="graphics" width="300px" height="300px">
+                        <!-- Координатные оси -->
+                        <line x1="0" x2="300" y1="150" y2="150" stroke="#000000"></line>
+                        <line x1="150" x2="150" y1="0" y2="300" stroke="#000000"></line>
+
+                        <!--Стрелки-->
+                        <polygon id="arrow" points="150,0 145,10 155,10" stroke="#000000"></polygon>
+                        <polygon id="arrow" points="300,150 290,145 290,155" stroke="#000000"></polygon>
+
+                        <!--Треугольник в первой четверти-->
+                        <polygon points="150,150 150,50 200,150"></polygon>
+
+                        <!--Квадрат в третьей четверти-->
+                        <polygon points="50,150 150,150 150,250 50,250"></polygon>
+
+                        <!--Четверть круга в четвертой четверти-->
+                        <path d="M250,150 A100,100 90 0,1 150,250 L 150,150 Z"></path>
+    
+                        <!-- Метки для значений R на оси X -->
+                        <line x1="50" x2="50" y1="145" y2="155" stroke="#000000"></line>
+                        <line x1="100" x2="100" y1="145" y2="155" stroke="#000000"></line>
+                        <line x1="200" x2="200" y1="145" y2="155" stroke="#000000"></line>
+                        <line x1="250" x2="250" y1="145" y2="155" stroke="#000000"></line>
+    
+                        <!-- Метки для значений R на оси Y -->
+                        <line x1="145" x2="155" y1="50" y2="50" stroke="#000000"></line>
+                        <line x1="145" x2="155" y1="100" y2="100" stroke="#000000"></line>
+                        <line x1="145" x2="155" y1="200" y2="200" stroke="#000000"></line>
+                        <line x1="145" x2="155" y1="250" y2="250" stroke="#000000"></line>
+    
+                        <!-- Подписи к осям -->
+                        <text x="290" y="140">X</text>
+                        <text x="155" y="10">Y</text>
+
+                        <!-- Значения R на оси X -->
+                        <text x="40" y="138">-R</text>
+                        <text x="85" y="138">-R/2</text>
+                        <text x="190" y="138">R/2</text>
+                        <text x="245" y="138">R</text>
+
+                        <!-- Значения R на оси Y -->
+                        <text x="162" y="54">R</text>
+                        <text x="162" y="104">R/2</text>
+                        <text x="162" y="204">-R/2</text>
+                        <text x="162" y="254">-R</text>
+
+                        <circle id="circle" cx='150' cy='150' r='3' fill='#000000' stroke-width='0'/>
+                    </svg>
+                </div>
+                <div id="results-container" colspan="3">
+                    <table id="results">
+                        <tr>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>R</th>
+                            <th>Текущее время</th>
+                            <th>Время работы скрипта</th>
+                            <th>Результат</th>
+                        </tr> 
+                    </table>
+                </div>
+            </div></td></tr>
+        </table>
+    </body>
+
+    <script src="web-lab-1/js/updater.js"></script>
+    <script src="web-lab-1/js/validator.js"></script>
+    <script src="web-lab-1/js/clearTable.js"></script>
+
+</html>

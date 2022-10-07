@@ -1,11 +1,11 @@
 function clearTable() {
-    $('#results').html(`<tr id="heads">
-        <th width="10%">X</th>
-        <th width="10%">Y</th>
-        <th width="10%">R</th>
-        <th width="20%">Текущее время</th>
-        <th width="30%">Время работы скрипта</th>
-        <th width="40%">Результат</th>
+    $('#results').html(`<tr>
+        <th>X</th>
+        <th>Y</th>
+        <th>R</th>
+        <th>Текущее время</th>
+        <th>Время работы скрипта</th>
+        <th>Результат</th>
     </tr> `);
     //window.localStorage.removeItem('tableData');
     localStorage.clear();

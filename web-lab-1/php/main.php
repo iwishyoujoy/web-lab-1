@@ -4,10 +4,9 @@ header('Access-Control-Allow-Origin: *');
 date_default_timezone_set('Europe/Moscow');
 
 
-
 function check_coords($x, $y, $r) {
     $flag = false;
-    if ($x >= 0 && $y >= 0 && abs($x + $y) <= $r*3/2) { //y<=-(x-r/2)+r  => y<=-x+3r/2 => x+y<=3r/2
+    if ($x >= 0 && $y >= 0 && $y + 2*$x <= $r) { //y<=-2x+R
         $flag = true;
     }
     if ($x <= 0 && $y <= 0 && $x <= $r && $y <= $r) {
@@ -39,12 +38,12 @@ if (isset($_GET["x"]) && isset($_GET["y"]) && isset($_GET["r"])) {
         
         exit("
             <tr>
-                <td width='10%'>$x</td>
-                <td width='10%'>$y</td>
-                <td width='10%'>$r</td>
-                <td width='20%'>$current_time</td>
-                <td width='30%'>$finish_time</td>
-                <td width='40%'>$checked_dot</td>
+                <td>$x</td>
+                <td>$y</td>
+                <td>$r</td>
+                <td>$current_time</td>
+                <td>$finish_time</td>
+                <td>$checked_dot</td>
             </tr> ");
     } else {
         exit("<tr><td colspan=6 id='error'>Серверу переданы неверные данные! Проверьте, что все данные введены!</td></tr>");
@@ -52,7 +51,3 @@ if (isset($_GET["x"]) && isset($_GET["y"]) && isset($_GET["r"])) {
 } else {
     exit("1");
 }
-// $x = $_GET["x"];
-// $y = $_GET["y"];
-// $r = $_GET["r"];
-// exit ("$x $y $r");
