@@ -166,7 +166,7 @@ path {
 @media (max-width: 700px) {
     .container{
         grid-template-columns: 1fr;
-        grid-template-rows: 0.8fr 0.8fr 0.8fr 0.8fr;
+        /* grid-template-rows: 0.8fr 0.8fr 0.8fr 0.8fr; */
         grid-template-areas: 
             "info-container"
             "area-container"
@@ -177,6 +177,20 @@ path {
     #area-container{
         margin: auto !important;
         justify-content: center;
+    }
+
+    /* #data-container{
+        padding-bottom: 100%;
+        margin-bottom: 100%;
+    } */
+
+    #check, #clear {
+        align-self: center;
+    }
+
+    #results{
+        width: 100%;
+        margin: 7% 0% 10%;
     }
 }
   
